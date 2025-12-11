@@ -27,3 +27,31 @@ int lagrange_eval(double z, int n, double *x, double *y, double *pz){
     *pz=lagrange;
     return 0;
 }
+
+double horner(double z, int n, double *x, double *c);{
+// Empezamos con el coeficiente más grande
+    double resultado = c[n];
+    
+    // Iteramos hacia atrás desde n-1 hasta 0
+    for (int i = n - 1; i >= 0; i--) {
+        resultado = resultado * (z - x[i]) + c[i];
+    }
+    
+    return resultado;
+}
+int difdiv(int n, double *x, double *y) {
+    // n: número de nodos - 1 (n+1 nodos)
+    // x: nodos x0, x1, ..., xn
+    // y: valores y0, y1, ..., yn; al final contendrá las diferencias divididas
+
+    for (int j = 1; j <= n; j++) {          // orden de la diferencia
+        for (int i = n; i >= j; i--) {      // recorrido desde atrás para no sobrescribir
+            double denom = x[i] - x[i - j];
+            if (fabs(denom) < 1e-12) {      // comprobación del denominador
+                return -1;                   // error, denominador demasiado pequeño
+            }
+            y[i] = (y[i] - y[i - 1]) / denom;  // cálculo de la diferencia dividida
+        }
+    }
+    return 0;  // todo correcto
+// 
