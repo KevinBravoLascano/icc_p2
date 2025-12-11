@@ -54,4 +54,4 @@ int difdiv(int n, double *x, double *y) {
         }
     }
     return 0;  // todo correcto
-// 
+}
