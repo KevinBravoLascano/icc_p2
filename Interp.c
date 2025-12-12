@@ -53,3 +53,14 @@ int difdiv(int n, double *x, double *y) {
     }
     return 0;  // todo correcto
 }
+
+double trap_full(int n, double a, double b){
+    double h = (b - a) / n;
+    double integral = 0.5 * (fun(a) + fun(b));
+    for (int j = 1; j < n; j++) {
+        double x_i = a + j * h;
+        integral += fun(x_i);
+    }   
+    integral *= h;
+    return integral; 
+}
