@@ -53,14 +53,25 @@ int difdiv(int n, double *x, double *y) {
     }
     return 0;  // todo correcto
 }
-
+double f(double x);
 double trap_full(int n, double a, double b){
     double h = (b - a) / n;
-    double integral = 0.5 * (fun(a) + fun(b));
+    double integral = 0.5 * (f(a) + f(b));
     for (int j = 1; j < n; j++) {
         double x_i = a + j * h;
-        integral += fun(x_i);
+        integral += f(x_i);
     }   
     integral *= h;
     return integral; 
+}
+
+double trap_refined(double Tn, int n, double a, double b){
+    double h = (b - a) / (2 * n);
+    double sum_new_points = 0.0;
+    for (int j = 1; j <= n; j++) {
+        double x_new = a + (2 * j - 1) * h;
+        sum_new_points += f(x_new);
+    }
+    double T2n = 0.5 * Tn + h * sum_new_points;
+    return T2n;
 }
